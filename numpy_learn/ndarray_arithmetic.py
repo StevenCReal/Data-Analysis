@@ -4,6 +4,7 @@ arr1 = np.array([[2., 3., 4.], [1.1, 1.2, 1.3]])
 print(arr1 > 2)
 """array slicing, view and copy"""
 # **the data is not copied, and any modifications to the view will be reflected in the source array.
+# 在python的list中，slicing只是浅拷贝，对不可变类型对象不会影响，这里array则会
 arr2 = np.arange(10)
 print(arr2)
 arr_slice = arr2[5:8]
@@ -43,7 +44,7 @@ print(data[~cond])
 cond = (names == 'Bob') | (names == 'Will')  # brackets are necessary
 print(data[cond])
 
-data2 = np.random.rand(4, 5)
+data2 = np.random.rand(4, 5)    # rand()生成在[0,1]之间均匀分布的随机样本，randn()则符合标准正态分布
 print(data2)
 print(data2[data2 < 0.5])
 """Fancy Indexing"""

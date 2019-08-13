@@ -34,5 +34,6 @@ arr1 = np.array([1,3,5,7], dtype=np.float32)
 print(arr1)
 # Calling astype always creates a new array (a copy of the data),
     # even if the new dtype is the same as the old dtype.
-arr1.astype(np.int32)
+arr2=arr1.astype(np.int32)
 print(arr1.dtype)
+print(arr2.dtype)
