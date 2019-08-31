@@ -27,7 +27,7 @@ Before you start scraping, you will have to set up a new Scrapy project :
 
 ## 1.2. Writing a *spider* to crawl a site and extract data
 ### 1.2.1. First Spider
-```
+```python
 class QuotesSpider(scrapy.Spider):
     name = "quotes"
     def start_requests(self):
@@ -49,12 +49,12 @@ class QuotesSpider(scrapy.Spider):
 - *start_requests()* : must return **an iterable of Requests** (you can return a list of requests or write a generator function) which the Spider will begin to crawl from.
 
 ### 1.2.2. How to run our spider ?
-```
+```shell
 [shell] scrapy crawl quotes
 ```
 
 ### 1.2.3. A shortcut to the start_requests method
-```
+```python
 class QuotesSpider(scrapy.Spider):
     name = "quotes"
     start_urls = [
@@ -67,12 +67,12 @@ told Scrapy to do so. This happens because parse() is Scrapy’s **default callb
 
 ### 1.2.4. extracting data
 - using the Scrapy shell:  
-```
+```shell
 [shell] scrapy shell "http://quotes.toscrape.com/page/1/"
         # use double quotes on Windows
 ```
 - The result of running *response.css( 'title' )* is a list-like object called **SelectorList**, which represents a list of Selector objects that wrap around XML/HTML elements and allow you to run further queries to fine-grain the selection or extract the data.
-```
+```shell
 [shell] response.css('title')
 >>> [<Selector xpath='descendant-or-self::title' data='<title>Quotes to Scrape</title>'>]
 
@@ -83,7 +83,7 @@ told Scrapy to do so. This happens because parse() is Scrapy’s **default callb
 ```
 - The result of calling *.getall( )* is a **list** (not SelectorList).
 - Besides the *getall( )* method, you can also use *get()* and *re()* to extract the first result and extract using **regular expressions** respectively:
-```
+```shell
 [shell]response.css('title::text').re(r'Quotes.*')
 >>> ['Quotes to Scrape']
 [shell] response.css('title::text').re(r'Q\w+')
@@ -99,7 +99,7 @@ told Scrapy to do so. This happens because parse() is Scrapy’s **default callb
 ## 1.3. Changing spider to recursively follow links
 ### 1.3.1. extracting the link
 We can see a link to the next page with the following markup:
-```
+```html
 <ul class="pager">
     <li class="next">
         <a href="/page/2/">Next <span aria-hidden="true">&rarr;</span></a>
@@ -114,7 +114,7 @@ We can see a link to the next page with the following markup:
 >>> '/page/2/'
 ```
 ### 1.3.2. follow the link extracting above:
-```
+```python
 import scrapy
 
 class QuotesSpider(scrapy.Spider):
@@ -140,14 +140,14 @@ class QuotesSpider(scrapy.Spider):
 
 > **urljoin()** 
 We can build a full absolute URL using the urljoin() method (since the links can be relative). There are 2 ways to use it:
-> ```
+> ```python
 > next_page = response.urljoin(next_page) # use the url of respnose as baseurl
 > next_page2 = urljoin(base,url) # explicitly pass the baseurl
 > ```
 
 > **response.follow()**  
 it allows you to use relative URLs directly, and you can also pass a selector to *response.follow()* :  
->```
+>```python
 > next_page = response.css('li.next a::attr(href)').get()
 > if next_page is not None:
 >     yield response.follow(next_page, callback=self.parse)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from urllib.request import urlopen, urlretrieve
+from urllib.request import urlopen, urlretrieve,urlcleanup
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 import re
@@ -20,9 +20,9 @@ def getPicLinks(pageUrl):
             'class': 'news_bom-left'
     }).findAll('a', target='_blank'):
         picName = link.attrs['title']   # 同一model的图片放在一个文件夹中，picName为文件夹名字
-        savingPath = "C:\\Users\\schen\\Pictures\\Girls\\" + picName + '\\' # 图片保存路径，最后要加上\，否则图片会保存在文件夹外
-        if os.path.exists(savingPath):  # 判断该文件夹是否已经存在
-            continue
+        savingPath = "C:\\Users\\schen\\Pictures\\Girls\\"  # 图片保存路径，最后要加上\，否则图片会保存在文件夹外
+        # if os.path.exists(savingPath):  # 判断该文件夹是否已经存在
+        #     continue
         picUrl = urljoin(pageUrl, link.attrs['href'])   # 转化为绝对路径
         print(picName)
         print(picUrl)
@@ -56,9 +56,10 @@ def getPic(pageUrl, savingPath):
     # print(imgUrl)
     # urlList.append(imgUrl)
     # nameList.append(imgName)
-    if not os.path.exists(savingPath):  # 为每一model创建文件夹
-        os.mkdir(savingPath)
+    # if not os.path.exists(savingPath):  # 为每一model创建文件夹
+    #     os.mkdir(savingPath)
     urlretrieve(imgUrl, filename=savingPath + imgName + ".jpg") # 下载图片，注意filename格式，前面必须要加保存路径，才能将图片保存在指定文件夹中，否则将保存在当前文件夹
+    urlcleanup()
 
     # 抓取下一页的图片
     next_page = bsObj.find('a', text=u"下一页")
@@ -80,6 +81,6 @@ def getPic(pageUrl, savingPath):
 #         print("--------downloading--------")
 #     print("-------done--------")
 
-getPicLinks("https://www.7160.com/rentiyishu/list_1_1.html")
+getPicLinks("https://www.7160.com/rentiyishu/list_1_6.html")
 # getPic("https://www.7160.com/rentiyishu/61748/index.html")
 # downloadPics(urlList, nameList)
