@@ -1,5 +1,17 @@
 # Scrapy Tutorial
-<!-- TOC -->autoauto- [Scrapy Tutorial](#scrapy-tutorial)auto    - [1.1. Creating a project](#11-creating-a-project)auto    - [1.2. Writing a *spider* to crawl a site and extract data](#12-writing-a-spider-to-crawl-a-site-and-extract-data)auto        - [1.2.1. First Spider](#121-first-spider)auto        - [1.2.2. How to run our spider ?](#122-how-to-run-our-spider-)auto        - [1.2.3. A shortcut to the start_requests method](#123-a-shortcut-to-the-start_requests-method)auto        - [1.2.4. extracting data](#124-extracting-data)auto    - [1.3. Changing spider to recursively follow links](#13-changing-spider-to-recursively-follow-links)auto        - [1.3.1. extracting the link](#131-extracting-the-link)auto        - [1.3.2. follow the link extracting above:](#132-follow-the-link-extracting-above)autoauto<!-- /TOC -->
+<!-- TOC -->
+[1.1. Creating a project](#11-creating-a-project)
+
+[1.2. Writing a *spider* to crawl a site and extract data](#12-writing-a-spider-to-crawl-a-site-and-extract-data)auto  
+* [1.2.1. First Spider](#121-first-spider)  
+* [1.2.2. How to run our spider ?](#122-how-to-run-our-spider-)  
+* [1.2.3. A shortcut to the start_requests method](#123-a-shortcut-to-the-start_requests-method)  
+* [1.2.4. extracting data](#124-extracting-data)  
+
+[1.3. Changing spider to recursively follow links](#13-changing-spider-to-recursively-follow-links)  
+* [1.3.1. extracting the link](#131-extracting-the-link)  
+* [1.3.2. follow the link extracting above:](#132-follow-the-link-extracting-above)
+<!-- /TOC -->
 ## 1.1. Creating a project
 Before you start scraping, you will have to set up a new Scrapy project : 
 ```
